@@ -73,8 +73,8 @@ let config = {
       filename: './index.html',
     }),
     new MiniCssExtractPlugin({
-      filename: '/static/css/[name].[hash:8].css',
-      chunkFilename: '/static/css/[name].[hash:8].css',
+      filename: 'static/css/[name].[hash:8].css',
+      chunkFilename: 'static/css/[name].[hash:8].css',
     }),
     new CopyPlugin([
       { from: './src/images/main.png', to: outputPath + '/static/media/main.png' },
