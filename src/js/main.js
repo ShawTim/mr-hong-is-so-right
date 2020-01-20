@@ -175,8 +175,10 @@ $(function() {
   setBannerTextStyle();
 
   $(".convert-button button").click((e) => {
+    $(".sticker-picker").hide();
     html2canvas($(".image-container").get(0)).then((canvas) => {
       canvas.toBlob((blob) => FileSaver.saveAs(blob, "和你揮.png"));
+      $(".sticker-picker").show();
     });
   });
 });

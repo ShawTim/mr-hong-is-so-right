@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'freehkfonts';
-  src: url('./Free-HK-Kai_4700-v1.02.ttf');
+  src: url('../fonts/Free-HK-Kai_4700-v1.02.ttf');
 }
 
 body {
@@ -12,7 +12,7 @@ body {
 
   &::after {
     content: "";
-    background: url(./bg.png);
+    background: url(../images/bg.png);
     background-size: cover;
     background-position: center;
     opacity: 0.3;
