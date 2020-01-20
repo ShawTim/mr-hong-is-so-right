@@ -7,7 +7,7 @@ let config = {
   entry: './src/js/app.js',
   output:  {
     filename: 'static/js/[name].[chunkhash:8].js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'docs')
   },
   module: {
     rules: [
