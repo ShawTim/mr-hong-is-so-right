@@ -2,12 +2,15 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyPlugin = require('copy-webpack-plugin');
+
+const outputPath = path.resolve(__dirname, 'docs');
 
 let config = {
   entry: './src/js/app.js',
   output:  {
     filename: 'static/js/[name].[chunkhash:8].js',
-    path: path.resolve(__dirname, 'docs')
+    path: outputPath,
   },
   module: {
     rules: [
@@ -31,7 +34,7 @@ let config = {
           loader: 'html-loader',
           options: {
             minimize: true,
-            attrs: ['img:src', 'use:xlink:href', 'option:data-img-src'],
+            attrs: ['img:src', 'use:xlink:href', 'option:data-img-src', 'link:href'],
           }
         }
       },
@@ -73,6 +76,9 @@ let config = {
       filename: '/static/css/[name].[hash:8].css',
       chunkFilename: '/static/css/[name].[hash:8].css',
     }),
+    new CopyPlugin([
+      { from: './src/images/main.png', to: outputPath + '/static/media/main.png' },
+    ]),
   ]
 };
 

@@ -7,7 +7,7 @@
     "start": "NODE_ENV=development webpack-dev-server --mode development --open",
     "dev": "NODE_ENV=development webpack --mode development",
     "build": "NODE_ENV=production webpack --mode production",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf docs"
   },
   "keywords": [],
   "author": "ShawTim",
@@ -16,6 +16,7 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
+    "copy-webpack-plugin": "^5.1.1",
     "css-loader": "^0.28.11",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
