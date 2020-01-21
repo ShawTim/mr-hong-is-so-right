@@ -9,6 +9,7 @@
     <meta property="og:image" content="./static/media/main.png" />
     <link rel="shortcut icon" type="image/png" href="./images/main.png" />
     <!-- Global site tag (gtag.js) - Google Analytics -->
+    <!--
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-114319536-1"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -23,6 +24,7 @@
 				enable_page_level_ads: true
 			});
 		</script>
+    -->
   </head>
   <body>
     <div class="image-container">
@@ -53,7 +55,10 @@
       <input id="h-input" type="number" placeholder="高度"/>
     </div>
     <div class="sticker-picker">
-      <select>
+      <div class="sticker-expand" data-ref="lipig-sticker">
+        <img src="./images/lipig00.png" />
+      </div>
+      <select id="lipig-sticker">
         <option value="0">0</option>
         <option data-img-src="./images/lipig00.png" value="lipig00">連豬00</option>
         <option data-img-src="./images/lipig01.png" value="lipig01">連豬01</option>
@@ -79,6 +84,14 @@
         <option data-img-src="./images/lipig21.png" value="lipig21">連豬21</option>
         <option data-img-src="./images/lipig22.png" value="lipig22">連豬22</option>
         <option data-img-src="./images/lipig23.png" value="lipig23">連豬23</option>
+      </select>
+    </div>
+    <div class="sticker-picker">
+      <div class="sticker-expand" data-ref="lidog-sticker">
+        <img src="./images/lidog00.png" />
+      </div>
+      <select id="lidog-sticker">
+        <option value="0">0</option>
         <option data-img-src="./images/lidog00.png" value="lidog00">連狗00</option>
         <option data-img-src="./images/lidog01.png" value="lidog01">連狗01</option>
         <option data-img-src="./images/lidog02.png" value="lidog02">連狗02</option>
@@ -101,6 +114,46 @@
         <option data-img-src="./images/lidog19.png" value="lidog19">連狗19</option>
         <option data-img-src="./images/lidog20.png" value="lidog20">連狗20</option>
         <option data-img-src="./images/lidog21.png" value="lidog21">連狗21</option>
+      </select>
+    </div>
+    <div class="sticker-picker">
+      <div class="sticker-expand" data-ref="pepe-sticker">
+        <img src="./images/pepe00.png" />
+      </div>
+      <select id="pepe-sticker">
+        <option value="0">0</option>
+        <option data-img-src="./images/pepe00.png" value="pepe00">PePe00</option>
+        <option data-img-src="./images/pepe01.png" value="pepe01">PePe01</option>
+        <option data-img-src="./images/pepe02.png" value="pepe02">PePe02</option>
+        <option data-img-src="./images/pepe03.png" value="pepe03">PePe03</option>
+        <option data-img-src="./images/pepe04.png" value="pepe04">PePe04</option>
+        <option data-img-src="./images/pepe05.png" value="pepe05">PePe05</option>
+        <option data-img-src="./images/pepe06.png" value="pepe06">PePe06</option>
+        <option data-img-src="./images/pepe07.png" value="pepe07">PePe07</option>
+        <option data-img-src="./images/pepe08.png" value="pepe08">PePe08</option>
+        <option data-img-src="./images/pepe09.png" value="pepe09">PePe09</option>
+        <option data-img-src="./images/pepe10.png" value="pepe10">PePe10</option>
+        <option data-img-src="./images/pepe11.png" value="pepe11">PePe11</option>
+        <option data-img-src="./images/pepe12.png" value="pepe12">PePe12</option>
+        <option data-img-src="./images/pepe13.png" value="pepe13">PePe13</option>
+        <option data-img-src="./images/pepe14.png" value="pepe14">PePe14</option>
+        <option data-img-src="./images/pepe15.png" value="pepe15">PePe15</option>
+        <option data-img-src="./images/pepe16.png" value="pepe16">PePe16</option>
+        <option data-img-src="./images/pepe17.png" value="pepe17">PePe17</option>
+        <option data-img-src="./images/pepe18.png" value="pepe18">PePe18</option>
+        <option data-img-src="./images/pepe19.png" value="pepe19">PePe19</option>
+        <option data-img-src="./images/pepe20.png" value="pepe20">PePe20</option>
+        <option data-img-src="./images/pepe21.png" value="pepe21">PePe21</option>
+        <option data-img-src="./images/pepe22.png" value="pepe22">PePe22</option>
+        <option data-img-src="./images/pepe23.png" value="pepe23">PePe23</option>
+        <option data-img-src="./images/pepe24.png" value="pepe24">PePe24</option>
+        <option data-img-src="./images/pepe25.png" value="pepe25">PePe25</option>
+        <option data-img-src="./images/pepe26.png" value="pepe26">PePe26</option>
+      </select>
+    </div>
+    <div class="sticker-picker">
+      <select id="other-sticker">
+        <option value="0">0</option>
       </select>
     </div>
     <div class="upload-button">
@@ -129,6 +182,9 @@
     <div id="wh-tooltip" style="display: none">
       <div>手機唔方便 resize 揮春大小？</div>
       <div>可以直接係呢度 set 既</div>
+    </div>
+    <div id="expand-tooltip" style="display: none">
+      <div>Click 開會有呢個系列既 sticker 可以用！</div>
     </div>
     <div id="sticker-tooltip" style="display: none">
       <div><b>Click</b>: 加入 sticker</div>

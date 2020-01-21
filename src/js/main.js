@@ -164,9 +164,10 @@ const setTabEvents = (element, options = {}) => interact(element).on("doubletap"
   flipImage(ele, ele.attr("scaleX")*-1);
 });
 
-const initStickers = () => {
-  $(".sticker-picker ul").remove();
-  $(".sticker-picker select").val("0").imagepicker({
+const initStickers = (id) => {
+  const ele = $(`#${id}`);
+  ele.parent().remove("ul");
+  ele.imagepicker({
     initialized: () => tippy(".sticker-picker .image_picker_selector img", {
       placement: "bottom",
       content: getTippyContent("#sticker-tooltip"),
@@ -217,11 +218,18 @@ $(function() {
     }
   });
 
+  $(".sticker-expand").click(function(e) {
+    const ele = $(this);
+    const id = ele.attr("data-ref");
+    console.log(e.target, id, this);
+    ele.hide();
+    initStickers(id);
+  });
+
   $(window).resize((e) => {
     setBannerTextStyle();
   });
 
-  initStickers();
   setWHInput();
 
   tippy(".text-picker input", {
@@ -230,7 +238,7 @@ $(function() {
   });
 
   tippy(".wh-picker input", {
-    placement: "top",
+    placement: "bottom",
     content: getTippyContent("#wh-tooltip"),
   });
 
@@ -239,8 +247,13 @@ $(function() {
     content: getTippyContent("#banner-tooltip"),
   });
 
+  tippy(".sticker-expand", {
+    placement: "left",
+    content: getTippyContent("#expand-tooltip"),
+  });
+
   tippy(".upload-button", {
-    placement: "top",
+    placement: "left",
     content: getTippyContent("#upload-tooltip"),
   });
 
@@ -259,8 +272,8 @@ $(function() {
         const dataURL = e.target.result;
         const value = Math.random().toString(36);
         const option = $("<option />").attr({ "data-img-src": dataURL, value }).html(value);
-        $(".sticker-picker select").append(option);
-        initStickers();
+        $(".sticker-picker #other-sticker").append(option);
+        initStickers("other-sticker");
       })(file);
       reader.readAsDataURL(file);
     } catch (e) {

@@ -109,7 +109,7 @@ body {
 }
 
 .wh-picker {
-  margin-top: 20px;
+  margin: 20px 0;
 
   input[type=number] {
     font-size: 1.2em;
@@ -119,9 +119,48 @@ body {
 }
 
 .sticker-picker {
-  margin-top: 20px;
+  margin: 8px 0;
   font-size: 12px;
   text-align: center;
+
+  select {
+    display: none;
+  }
+
+  .sticker-expand {
+    background-color: #FFFFFF;
+    position: relative;
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    box-shadow: 2px 1px 1px rgba(0, 0, 0, 0.15);
+
+    img {
+      width: 100px;
+      height: 100px;
+    }
+
+    &::before, &::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #EEEEEE;
+      box-shadow: 2px 1px 1px rgba(0, 0, 0, 0.15);
+    }
+
+    &::before {
+      left: 7px;
+      top: 5px;
+      z-index: -1;
+    }
+
+    &::after {
+      left: 12px;
+      top: 10px;
+      z-index: -2;
+    }
+  }
 
   .image_picker_selector {
     display: flex;
@@ -140,6 +179,8 @@ body {
 }
 
 .upload-button {
+  margin-top: 12px;
+
   #upload-button {
     display: none;
   }

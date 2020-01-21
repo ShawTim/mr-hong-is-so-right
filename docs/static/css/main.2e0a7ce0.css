@@ -78,16 +78,43 @@ body {
     text-align: center; }
 
 .wh-picker {
-  margin-top: 20px; }
+  margin: 20px 0; }
   .wh-picker input[type=number] {
     font-size: 1.2em;
     width: 100px;
     text-align: center; }
 
 .sticker-picker {
-  margin-top: 20px;
+  margin: 8px 0;
   font-size: 12px;
   text-align: center; }
+  .sticker-picker select {
+    display: none; }
+  .sticker-picker .sticker-expand {
+    background-color: #FFFFFF;
+    position: relative;
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    box-shadow: 2px 1px 1px rgba(0, 0, 0, 0.15); }
+    .sticker-picker .sticker-expand img {
+      width: 100px;
+      height: 100px; }
+    .sticker-picker .sticker-expand::before, .sticker-picker .sticker-expand::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #EEEEEE;
+      box-shadow: 2px 1px 1px rgba(0, 0, 0, 0.15); }
+    .sticker-picker .sticker-expand::before {
+      left: 7px;
+      top: 5px;
+      z-index: -1; }
+    .sticker-picker .sticker-expand::after {
+      left: 12px;
+      top: 10px;
+      z-index: -2; }
   .sticker-picker .image_picker_selector {
     display: flex;
     flex-wrap: wrap;
@@ -98,28 +125,29 @@ body {
   .sticker-picker .credit img {
     width: 100px; }
 
-.upload-button #upload-button {
-  display: none; }
-
-.upload-button .upload-wrapper {
-  background: url(../media/lipig00.ee4c56f4.png);
-  background-color: #D11F1F;
-  background-size: cover;
-  background-position: center;
-  width: 160px;
-  height: 160px;
-  margin: 10px;
-  border: 3px dashed #EEDA37;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 22px;
-  font-weight: bold; }
-  .upload-button .upload-wrapper div {
-    margin: 8px 0;
-    line-height: 1.2em; }
+.upload-button {
+  margin-top: 12px; }
+  .upload-button #upload-button {
+    display: none; }
+  .upload-button .upload-wrapper {
+    background: url(../media/lipig00.ee4c56f4.png);
+    background-color: #D11F1F;
+    background-size: cover;
+    background-position: center;
+    width: 160px;
+    height: 160px;
+    margin: 10px;
+    border: 3px dashed #EEDA37;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 22px;
+    font-weight: bold; }
+    .upload-button .upload-wrapper div {
+      margin: 8px 0;
+      line-height: 1.2em; }
 
 .convert-button {
   margin-top: 20px; }
