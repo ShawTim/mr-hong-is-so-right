@@ -27,12 +27,16 @@ body {
 
 .image-container {
   margin-top: 30px;
+  transform: none;
+  left: 0;
+  top: 0;
 
   .banner-container {
     display: table;
     height: 320px;
     width: 960px;
     background-color: #D11F1F;
+    box-sizing: border-box;
 
     .banner-top,
     .banner-center,
@@ -75,6 +79,7 @@ body {
 
   img {
     margin: 1px;
+    touch-action: none;
   }
 
   img:focus {
@@ -116,6 +121,35 @@ body {
 
   .credit img {
     width: 100px;
+  }
+}
+
+.upload-button {
+  #upload-button {
+    display: none;
+  }
+
+  .upload-wrapper {
+    background: url(../images/lipig00.png);
+    background-color: #D11F1F;
+    background-size: cover;
+    background-position: center;
+    width: 160px;
+    height: 160px;
+    margin: 10px;
+    border: 3px dashed #EEDA37;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 22px;
+    font-weight: bold;
+
+    div {
+      margin: 8px 0;
+      line-height: 1.2em;
+    }
   }
 }
 

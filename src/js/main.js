@@ -11,13 +11,31 @@ tippy.setDefaultProps({
   allowHTML: true,
 });
 
+const flipImage = (image, scaleX) => {
+  if (scaleX) {
+    image.attr({ scaleX });
+  }
+  if (image.attr("scaleX") < 0) {
+    const canvas = $("<canvas />").attr({ width: image.width(), height: image.height() }).get(0);
+    const context = canvas.getContext("2d");
+    const img = $("<img/>").attr({ src: image.attr("dataSrc") });
+    context.translate(image.width(), 0);
+    context.scale(image.attr("scaleX"), image.attr("scaleY"));
+    context.drawImage(img.get(0), 0, 0, image.width(), image.height());
+    const dataURL = canvas.toDataURL();
+    image.attr({ src: dataURL });
+  } else {
+    image.attr({ src: image.attr("dataSrc") });
+  }
+};
+
 const getCenter = () => {
   const center = $(".banner-center-center");
   const offset = center.offset();
   const width = center.width();
   const height = center.height();
   return { x: offset.left + width/2, y: offset.top + height/2 };
-}
+};
 
 const setBannerTextStyle = () => {
   const container = $(".banner-container");
@@ -43,23 +61,31 @@ const setBannerTextStyle = () => {
     fontSize: `${Math.min(maxW/w, maxH/h)}em`,
     "writing-mode": isLeftToRight ? "lr" : "tb",
   });
-}
+};
 
 const addSticker = (url) => {
   const container = $(".image-container");
-  const image = $("<img/>").attr({ src: url, tabIndex: 1 }).css({ height: 100, "z-index": 10, position: "absolute" });
+  const image = $("<img/>").attr({
+    src: url,
+    dataSrc: url,
+    tabIndex: 1,
+    scaleX: 1,
+    scaleY: 1,
+  }).css({ height: 100, "z-index": 10, position: "absolute" });
   container.prepend(image);
   setDraggable(image.get(0));
   setResizable(image.get(0), { preserveAspectRatio: true, useTranslate: true });
   image.mouseover(function(e) { $(this).focus(); });
   image.bind("touchstart", function(e) { $(this).focus(); });
   image.keyup(function(e) {
-    console.log(e.keyCode)
     if (e.keyCode === 27 || e.keyCode === 8 || e.keyCode === 46) {
       $(this).remove();
     }
+    if (e.keyCode === 37 || e.keyCode === 39) {
+      flipImage($(this), image.attr("scaleX")*-1);
+    }
   });
-}
+};
 
 const setDraggable = (element, options = {}) => interact(element).draggable($.extend(true, {}, {
   restrict: {
@@ -122,7 +148,20 @@ const setResizable = (element, options = {}) => interact(element).resizable($.ex
 
   setBannerTextStyle();
 }).on("resizeend", (e) => {
+  const ele = $(e.target);
+  flipImage(ele);
 });
+
+const initStickers = () => {
+  $(".sticker-picker ul").remove();
+  $(".sticker-picker select").val("0").imagepicker({
+    initialized: () => tippy(".sticker-picker .image_picker_selector img", {
+      placement: "bottom",
+      content: getTippyContent("#sticker-tooltip"),
+    }),
+    clicked: (select, e) => addSticker($(e.target).attr("src")),
+  });
+};
 
 const getTippyContent = (selector) => $(selector).html();
 
@@ -149,13 +188,7 @@ $(function() {
     setBannerTextStyle();
   });
 
-  $(".sticker-picker select").val("0").imagepicker({
-    initialized: () => tippy(".sticker-picker .image_picker_selector img", {
-      placement: "bottom",
-      content: getTippyContent("#sticker-tooltip"),
-    }),
-    clicked: (select, e) => addSticker($(e.target).attr("src")),
-  });
+  initStickers();
 
   tippy(".text-picker input", {
     placement: "top",
@@ -174,11 +207,31 @@ $(function() {
 
   setBannerTextStyle();
 
+  $("#upload-button").change((e) => {
+    try {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.onload = ((f) => (e) => {
+        const dataURL = e.target.result;
+        const value = Math.random().toString(36);
+        const option = $("<option />").attr({ "data-img-src": dataURL, value }).html(value);
+        $(".sticker-picker select").append(option);
+        initStickers();
+      })(file);
+      reader.readAsDataURL(file);
+    } catch (e) {
+      console.error(e);
+    }
+  });
+
+  const otherContainers = $(".text-picker, .sticker-picker, .upload-button, .convert-button, .footer");
   $(".convert-button button").click((e) => {
-    $(".sticker-picker").hide();
-    html2canvas($(".image-container").get(0)).then((canvas) => {
+    otherContainers.hide();
+    window.scrollTo(0, 0);
+    const container = $(".image-container");
+    html2canvas(container.get(0)).then((canvas) => {
       canvas.toBlob((blob) => FileSaver.saveAs(blob, "和你揮.png"));
-      $(".sticker-picker").show();
+      otherContainers.show();
     });
   });
 });
