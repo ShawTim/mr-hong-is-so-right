@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssUrlRelativePlugin = require("css-url-relative-plugin");
 const CopyPlugin = require('copy-webpack-plugin');
 
 const outputPath = path.resolve(__dirname, 'docs');
@@ -79,6 +80,7 @@ let config = {
     new CopyPlugin([
       { from: './src/images/main.png', to: outputPath + '/static/media/main.png' },
     ]),
+    new CssUrlRelativePlugin(),
   ]
 };
 

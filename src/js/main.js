@@ -75,6 +75,7 @@ const addSticker = (url) => {
   container.prepend(image);
   setDraggable(image.get(0));
   setResizable(image.get(0), { preserveAspectRatio: true, useTranslate: true });
+  setTabEvents(image);
   image.mouseover(function(e) { $(this).focus(); });
   image.bind("touchstart", function(e) { $(this).focus(); });
   image.keyup(function(e) {
