@@ -3,6 +3,8 @@ import interact from "interactjs";
 import FileSaver from "file-saver";
 import tippy from "tippy.js";
 
+const MIN_SIZE = 320;
+
 tippy.setDefaultProps({
   arrow: true,
   delay: 0,
@@ -74,7 +76,13 @@ const addSticker = (url) => {
   }).css({ height: 100, "z-index": 10, position: "absolute" });
   container.prepend(image);
   setDraggable(image.get(0));
-  setResizable(image.get(0), { preserveAspectRatio: true, useTranslate: true });
+  setResizable(image.get(0), {
+    preserveAspectRatio: true,
+    useTranslate: true
+  }).on("resizeend", (e) => {
+    const ele = $(e.target);
+    flipImage(ele);
+  });
   setTabEvents(image);
   image.mouseover(function(e) { $(this).focus(); });
   image.bind("touchstart", function(e) { $(this).focus(); });
@@ -149,8 +157,6 @@ const setResizable = (element, options = {}) => interact(element).resizable($.ex
 
   setBannerTextStyle();
 }).on("resizeend", (e) => {
-  const ele = $(e.target);
-  flipImage(ele);
 });
 
 const setTabEvents = (element, options = {}) => interact(element).on("doubletap", (e) => {
@@ -169,6 +175,11 @@ const initStickers = () => {
   });
 };
 
+const setWHInput = () => {
+  $(".wh-picker #w-input").val($(".banner-container").width());
+  $(".wh-picker #h-input").val($(".banner-container").height());
+};
+
 const getTippyContent = (selector) => $(selector).html();
 
 $(function() {
@@ -177,9 +188,9 @@ $(function() {
       endOnly: true,
     },
     restrictSize: {
-      min: { width: 320, height: 320 },
+      min: { width: MIN_SIZE, height: MIN_SIZE },
     },
-  });
+  }).on("resizeend", setWHInput);
 
   $(".text-picker input").keyup((e) => {
     const currentText = $(".banner-text").text();
@@ -190,20 +201,47 @@ $(function() {
     }
   });
 
+  $(".wh-picker #w-input").change((e) => {
+    const w = e.target.value;
+    if (w && w >= MIN_SIZE) {
+      $(".banner-container").width(w);
+      setBannerTextStyle();
+    }
+  });
+
+  $(".wh-picker #h-input").change((e) => {
+    const h = e.target.value;
+    if (h && h >= MIN_SIZE) {
+      $(".banner-container").height(h);
+      setBannerTextStyle();
+    }
+  });
+
   $(window).resize((e) => {
     setBannerTextStyle();
   });
 
   initStickers();
+  setWHInput();
 
   tippy(".text-picker input", {
     placement: "top",
     content: getTippyContent("#text-tooltip"),
   });
 
+  tippy(".wh-picker input", {
+    placement: "top",
+    content: getTippyContent("#wh-tooltip"),
+  });
+
   tippy(".banner-container", {
     placement: "left",
     content: getTippyContent("#banner-tooltip"),
+  });
+
+  tippy(".upload-button", {
+    placement: "top",
+    content: getTippyContent("#upload-tooltip"),
   });
 
   tippy(".convert-button", {
@@ -230,14 +268,16 @@ $(function() {
     }
   });
 
-  const otherContainers = $(".text-picker, .sticker-picker, .upload-button, .convert-button, .footer");
+  const otherContainers = $(".text-picker, .wh-picker, .sticker-picker, .upload-button, .convert-button, .footer");
   $(".convert-button button").click((e) => {
     otherContainers.hide();
+    $("body").addClass("rendering");
     window.scrollTo(0, 0);
     const container = $(".image-container");
     html2canvas(container.get(0)).then((canvas) => {
       canvas.toBlob((blob) => FileSaver.saveAs(blob, "和你揮.png"));
       otherContainers.show();
+      $("body").removeClass("rendering");
     });
   });
 });

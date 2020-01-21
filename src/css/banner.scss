@@ -9,6 +9,7 @@ body {
   flex-direction: column;
   align-items: center;
   font-family: "Courier New", Helvetica, Arial;
+  width: 100%;
 
   &::after {
     content: "";
@@ -22,6 +23,10 @@ body {
     right: 0;
     position: fixed;
     z-index: -1;
+  }
+
+  &.rendering {
+    position: fixed;
   }
 }
 
@@ -99,6 +104,16 @@ body {
   input {
     font-size: 2em;
     width: 400px;
+    text-align: center;
+  }
+}
+
+.wh-picker {
+  margin-top: 20px;
+
+  input[type=number] {
+    font-size: 1.2em;
+    width: 100px;
     text-align: center;
   }
 }
