@@ -82,7 +82,7 @@ const addSticker = (url) => {
       $(this).remove();
     }
     if (e.keyCode === 37 || e.keyCode === 39) {
-      flipImage($(this), image.attr("scaleX")*-1);
+      flipImage($(this), $(this).attr("scaleX")*-1);
     }
   });
 };
@@ -150,6 +150,11 @@ const setResizable = (element, options = {}) => interact(element).resizable($.ex
 }).on("resizeend", (e) => {
   const ele = $(e.target);
   flipImage(ele);
+});
+
+const setTabEvents = (element, options = {}) => interact(element).on("doubletap", (e) => {
+  const ele = $(e.target);
+  flipImage(ele, ele.attr("scaleX")*-1);
 });
 
 const initStickers = () => {
