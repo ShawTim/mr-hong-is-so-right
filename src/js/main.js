@@ -86,7 +86,7 @@ $(async () => {
     }, {
       title: "感染率(每萬)", field: "confirmedRate", width: 100, align: "right", sortable: true,
       formatter: (val, row) => row.population ? numeral(val*10000).format("0,0.000") : "---",
-      footerFormatter: (data) => numeral(totalRate(data, "confirmed", "population")).format("0,0.000"),
+      footerFormatter: (data) => numeral(totalRate(data, "confirmed", "population")*10000).format("0,0.000"),
     }, {
       title: "死亡人數", field: "death", width: 100, align: "right", sortable: true, 
       formatter: (val) => numeral(val).format("0,0"),
