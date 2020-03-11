@@ -4,18 +4,12 @@ import populations from "./population.json";
 const sanitizeData = (data) => {
   const map = data.reduce((m, d) => {
     let region = d.Country_Region;
-    if (d.Province_State === "Hong Kong SAR") {
+    if (d.Province_State === "Hong Kong") {
       region = "Hong Kong";
-    } else if (d.Province_State === "Taipei and environs") {
+    } else if (d.Country_Region === "Taiwan*") {
       region = "Taiwan";
-    } else if (d.Province_State === "Macao SAR") {
+    } else if (d.Province_State === "Macau") {
       region = "Macau";
-    } else if (d.Country_Region === "Others") {
-      region = "Diamond Princess";
-    } else if (d.Country_Region === "Iran (Islamic Republic of)") {
-      region = "Iran";
-    } else if (d.Country_Region === "Republic of Moldova") {
-      return m;
     }
 
     const obj = {

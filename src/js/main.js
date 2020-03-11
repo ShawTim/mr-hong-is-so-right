@@ -4,7 +4,7 @@ import { getData } from "./api";
 
 let tableData;
 const filtered = {
-  "Diamond Princess": 1
+  "Cruise Ship": 1
 };
 
 const totalNum = (data, field) => data.reduce((sum, d) => sum + (d[field] || 0), 0);
