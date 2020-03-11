@@ -2,18 +2,56 @@ import numeral from "numeral";
 import populations from "./population.json";
 import { getData } from "./api";
 
+let tableData;
+const filtered = {
+  "Diamond Princess": 1
+};
+
 const totalNum = (data, field) => data.reduce((sum, d) => sum + (d[field] || 0), 0);
 
-const totalRate = (data, field) => {
+const totalRate = (data, field, baseField) => {
   const total = data.reduce((sum, d) => sum + d[field], 0);
-  const totalPopulation = data.reduce((sum, d) => sum + (d.population || 0), 0);
-  return total/totalPopulation;
-}
+  const totalBase = data.reduce((sum, d) => sum + (d[baseField] || 0), 0);
+  return total/totalBase;
+};
+
+const renderList = () => {
+  const filters = Object.keys(filtered);
+  $("#data-table").bootstrapTable("refreshOptions", {
+    data: (tableData || []).filter((d) => !filters.includes(d.region))
+  });
+};
+
+const renderFilters = () => {
+  const filterContainer = $(".filters").html("");
+  const filters = Object.keys(filtered);
+  filters.forEach((f) => {
+    const chip = $("<span></span>").addClass("badge badge-pill badge-secondary");
+    const closeBtn = $("<a>&times</a>").attr({ href: "#", region: f }).addClass("badge badge-pill badge-light");
+    closeBtn.click((ev) => {
+      const { region } = ev.target.attributes;
+      delete filtered[region.nodeValue];
+      renderList();
+      renderFilters();
+    });
+    chip.append(f).append(closeBtn);
+    filterContainer.append(chip);
+  });
+};
+
+const filterEvents = {
+  "click .remove": (ev, val, row, index) => {
+    filtered[row.region] = 1;
+    renderList();
+    renderFilters();
+  },
+};
 
 $(async () => {
   const table = $("#data-table");
   const rawData = await getData();
-  const tableData = rawData.filter((data) => data.Country_Region !== "Others").map((data) => {
+  const filters = Object.keys(filtered);
+  tableData = rawData.map((data) => {
     const population = populations[data.Country_Region];
     return {
       region: data.Country_Region,
@@ -25,7 +63,7 @@ $(async () => {
       recovered: data.Recovered,
       recoveredRate: data.Recovered/data.Confirmed,
     };
-  });
+  }).filter((d) => !filters.includes(d.region));
   table.bootstrapTable({
     data: tableData,
     height: 800,
@@ -47,7 +85,7 @@ $(async () => {
     }, {
       title: "感染率(每萬)", field: "confirmedRate", width: 100, align: "right", sortable: true,
       formatter: (val, row) => row.population ? numeral(val*10000).format("0,0.000") : "---",
-      footerFormatter: (data) => numeral(totalRate(data, "confirmed")).format("0,0.000"),
+      footerFormatter: (data) => numeral(totalRate(data, "confirmed", "population")).format("0,0.000"),
     }, {
       title: "死亡人數", field: "death", width: 100, align: "right", sortable: true, 
       formatter: (val) => numeral(val).format("0,0"),
@@ -55,7 +93,7 @@ $(async () => {
     }, {
       title: "死亡率", field: "deathRate", width: 100, align: "right", sortable: true,
       formatter: (val) => numeral(val).format("0.000%"),
-      footerFormatter: (data) => numeral(totalRate(data, "death")).format("0.000%"),
+      footerFormatter: (data) => numeral(totalRate(data, "death", "confirmed")).format("0.000%"),
     }, {
       title: "康復人數", field: "recovered", width: 100, align: "right", sortable: true,
       formatter: (val) => numeral(val).format("0,0"),
@@ -63,7 +101,12 @@ $(async () => {
     }, {
       title: "康復率", field: "recoveredRate", width: 100, align: "right", sortable: true,
       formatter: (val) => numeral(val).format("0.000%"),
-      footerFormatter: (data) => numeral(totalRate(data, "recovered")).format("0.000%"),
+      footerFormatter: (data) => numeral(totalRate(data, "recovered", "confirmed")).format("0.000%"),
+    }, {
+      title: "移除", align: "center",
+      events: filterEvents,
+      formatter: (val, row) => '<a class="remove badge  badge-danger" href="javascript:void(0)">&times</a>',
     }],
   });
+  renderFilters();
 });

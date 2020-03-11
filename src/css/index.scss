@@ -12,11 +12,47 @@ body {
 
 .table-container {
   margin-top: 20px;
+
+  td {
+    font-size: 1.2em;
+  }
+
+  .remove.badge {
+    padding-top: 5px;
+    padding-left: 6px;
+  }
+}
+
+.filter-container {
+  margin-top: 20px;
+
+  label {
+    font-weight: bold;
+  }
+
+  .filters {
+    display: inline-flex;
+
+    span {
+      margin-right: 8px;
+      padding: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2em;
+
+      a {
+        margin-left: 12px;
+        padding-top: 5px;
+        padding-left: 9px;
+      }
+    }
+  }
 }
 
 .footer {
-  margin-top: 60px;
-  margin-bottom: 40px;
+  margin-top: 40px;
+  margin-bottom: 20px;
   font-size: 12px;
   display: flex;
   align-items: center;
