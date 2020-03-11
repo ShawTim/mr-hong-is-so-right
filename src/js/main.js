@@ -31,6 +31,7 @@ const renderFilters = () => {
     closeBtn.click((ev) => {
       const { region } = ev.target.attributes;
       delete filtered[region.nodeValue];
+      console.log("click", filtered);
       renderList();
       renderFilters();
     });
@@ -63,9 +64,9 @@ $(async () => {
       recovered: data.Recovered,
       recoveredRate: data.Recovered/data.Confirmed,
     };
-  }).filter((d) => !filters.includes(d.region));
+  });
   table.bootstrapTable({
-    data: tableData,
+    data: tableData.filter((d) => !filters.includes(d.region)),
     height: 800,
     showFooter: true,
     columns: [{

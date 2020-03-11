@@ -78,7 +78,7 @@ let config = {
       chunkFilename: 'static/css/[name].[hash:8].css',
     }),
     new CopyPlugin([
-      { from: './src/images/main.png', to: outputPath + '/static/media/main.png' },
+      { from: './src/images/preview.png', to: outputPath + '/static/media/preview.png' },
     ]),
     new CssUrlRelativePlugin(),
   ]
