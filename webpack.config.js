@@ -8,7 +8,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const outputPath = path.resolve(__dirname, 'docs');
 
 let config = {
-  entry: './src/js/app.js',
+  entry: ['@babel/polyfill', './src/js/app.js'],
   output:  {
     filename: 'static/js/[name].[chunkhash:8].js',
     path: outputPath,
