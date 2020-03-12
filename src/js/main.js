@@ -76,7 +76,7 @@ $(async () => {
       title: "國家/地區", field: "region", width: 300,
       footerFormatter: (data) => "總計",
     }, {
-      title: "人口(萬)", field: "population", width: 150, align: "right", sortable: true,
+      title: "人口(萬)", field: "population", width: 100, align: "right", sortable: true,
       formatter: (val) => val ? numeral(val/10000).format("0,0") : "---",
       footerFormatter: (data) => numeral(totalNum(data, "population")/10000).format("0,0"),
     }, {
