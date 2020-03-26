@@ -10,6 +10,8 @@ const sanitizeData = (data) => {
       region = "Taiwan";
     } else if (d.Province_State === "Macau") {
       region = "Macau";
+    } else if (d.Country_Region === "West Bank and Gaza") {
+      region = "Palestinian territories";
     }
 
     const obj = {

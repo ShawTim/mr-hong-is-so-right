@@ -4,7 +4,7 @@ import { getData } from "./api";
 
 let tableData;
 const filtered = {
-  "Cruise Ship": 1
+  "Diamond Princess": 1
 };
 
 const totalNum = (data, field) => data.reduce((sum, d) => sum + (d[field] || 0), 0);
@@ -77,7 +77,7 @@ $(async () => {
       footerFormatter: (data) => "總計",
     }, {
       title: "人口(萬)", field: "population", width: 100, align: "right", sortable: true,
-      formatter: (val) => val ? numeral(val/10000).format("0,0") : "---",
+      formatter: (val) => val ? numeral(val/10000).format(val >= 10000 ? "0,0" : "0.00") : "---",
       footerFormatter: (data) => numeral(totalNum(data, "population")/10000).format("0,0"),
     }, {
       title: "感染人數", field: "confirmed", width: 100, align: "right", sortable: true,
