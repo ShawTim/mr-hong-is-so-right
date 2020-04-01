@@ -12,3 +12,5 @@
 點擊like數可以直接改like數。
 
 大家睇下生成出黎既圖似唔似？
+
+![生成器](https://shawtim.github.io/mr-hong-is-so-right/static/media/preview.png)
