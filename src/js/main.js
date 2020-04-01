@@ -3,9 +3,12 @@ import FileSaver from "file-saver";
 
 document.addEventListener("DOMContentLoaded", (e) => {
   const container = document.querySelector(".container");
+  const reactContainer = document.getElementById("react-container");
   const downloadBtn = document.getElementById("download-button");
   downloadBtn.addEventListener("click", (e) => {
+    reactContainer.style.boxShadow = "none"; // TODO: a workaround for html2canvas bug #1856
     html2canvas(container).then((canvas) => {
+      reactContainer.style.boxShadow = "";
       canvas.toBlob((blob) => FileSaver.saveAs(blob, "項生鬧得好寫得好.png"));
     });
   });
