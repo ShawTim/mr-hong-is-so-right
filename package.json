@@ -1,5 +1,5 @@
 {
-  "name": "wuhan-virus-infection",
+  "name": "mr-hong-is-so-right",
   "version": "0.1.0",
   "main": "webpack.config.js",
   "scripts": {
@@ -40,7 +40,8 @@
   "dependencies": {
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
-    "bootstrap-table": "^1.16.0",
+    "file-saver": "^2.0.2",
+    "html2canvas": "^1.0.0-rc.5",
     "jquery": "^3.4.1",
     "numeral": "^2.0.6",
     "popper.js": "^1.16.1"

@@ -40,7 +40,7 @@ let config = {
         }
       },
       {
-        test: [/\.gif$/, /\.jpe?g$/, /\.png$/],
+        test: [/\.gif$/, /\.jpe?g$/, /\.png$/, /\.ico$/],
         use: [
           {
             loader: 'url-loader',

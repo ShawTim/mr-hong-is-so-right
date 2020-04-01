@@ -1,7 +1,14 @@
-# 武漢肺炎全球感染表
-[連結](https://shawtim.github.io/wuhan-virus-infection/)
+# 項生鬧得好寫得好生成器
 
-![武漢肺炎全球感染表](https://shawtim.github.io/wuhan-virus-infection/static/media/preview.png)
+呢個生成器係一項技術研究，
+當有名人每次想用分身但用錯本尊黎讚自己果時都會話俾人改圖。
+但其實改圖實在太煩，
+而家就係用技術示範其實有更簡單既方法。
 
-[CSSEGISandData](https://github.com/CSSEGISandData/COVID-19/) 今日突然將港台澳三地納入中國轄下。武漢肺
-炎數據乃係各地防疫重要參考指標，我對提供數據做研究既美國大學突然加入政治因素表示極度遺憾以及強烈反對。於是立即開發出本項目將中港台澳四地數據分離，以及加入人口作數據展示。
+大家可以係下面自由更改內容︰
+點擊頭像可以upload另一個樣；
+點擊用戶名可以直接改名；
+點擊comment內容可以直接改內容；
+點擊like數可以直接改like數。
+
+大家睇下生成出黎既圖似唔似？
